@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0f1117">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Siegwerk Флексо">
+<title>Siegwerk · Флексо Велпапе · Пълен наръчник</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@300;400;600;700&display=swap');
+:root {
+  --bg:#0f1117; --s1:#161920; --s2:#1d2230; --s3:#242838;
+  --bd:#2a3040; --tx:#dde2ee; --mu:#5a6480;
+  --ac:#4f7ef5; --acd:rgba(79,126,245,.15);
+  --re:#f04060; --red:rgba(240,64,96,.12);
+  --am:#f5a623; --amd:rgba(245,166,35,.12);
+  --gr:#2ec97c; --grd:rgba(46,201,124,.12);
+  --cy:#0bc5ea; --pu:#9f7aea;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'IBM Plex Sans Condensed',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;
+  padding:env(safe-area-inset-top,1rem) .85rem env(safe-area-inset-bottom,3rem);
+  padding-top:calc(env(safe-area-inset-top,0px) + 1rem)}
+
+/* HEADER */
+.hdr{max-width:900px;margin:0 auto .85rem;border-bottom:1px solid var(--bd);padding-bottom:.7rem}
+.eye{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ac);margin-bottom:.15rem}
+h1{font-size:1.25rem;font-weight:700;line-height:1.2}
+h1 em{color:var(--ac);font-style:normal}
+.sub{font-size:.7rem;color:var(--mu);margin-top:.1rem}
+
+/* TABS */
+.tabs{max-width:900px;margin:0 auto .7rem;display:flex;border:1px solid var(--bd);border-radius:6px;overflow:hidden}
+.tab{flex:1;padding:.5rem .25rem;text-align:center;font-size:.65rem;font-weight:600;cursor:pointer;
+  background:var(--s1);color:var(--mu);border:none;font-family:inherit;letter-spacing:.03em;
+  transition:background .1s,color .1s;border-right:1px solid var(--bd)}
+.tab:last-child{border-right:none}
+.tab.on{background:var(--ac);color:#fff}
+.panel{display:none;max-width:900px;margin:0 auto}
+.panel.on{display:block}
+
+/* CARD */
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:6px;padding:.85rem;margin-bottom:.6rem}
+.clb{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.15em;text-transform:uppercase;color:var(--mu);margin-bottom:.55rem}
+
+/* CALC */
+.calc-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
+.big-in{font-family:'IBM Plex Mono',monospace;font-size:2.2rem;font-weight:600;width:95px;
+  background:var(--s2);border:2px solid var(--bd);color:var(--ac);
+  padding:.3rem .4rem;border-radius:5px;outline:none;-moz-appearance:textfield;text-align:center}
+.big-in::-webkit-outer-spin-button,.big-in::-webkit-inner-spin-button{-webkit-appearance:none}
+.big-in:focus{border-color:var(--ac)}
+.unit{font-size:.72rem;color:var(--mu);font-family:'IBM Plex Mono',monospace;line-height:1.5}
+.nudge-row{display:flex;gap:.35rem;margin-bottom:.6rem}
+.ndg{flex:1;padding:.5rem;background:var(--s2);border:1px solid var(--bd);color:var(--tx);
+  border-radius:5px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
+.ndg:active{background:var(--bd)}
+.rpills{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.35rem;margin-bottom:.55rem}
+.rp{background:var(--s2);border:1px solid var(--bd);border-radius:5px;padding:.4rem .45rem;text-align:center}
+.rl{font-size:.54rem;color:var(--mu);font-family:'IBM Plex Mono',monospace;margin-bottom:.08rem}
+.rv{font-family:'IBM Plex Mono',monospace;font-size:.95rem;font-weight:600}
+.zbanner{padding:.45rem .65rem;border-radius:5px;font-size:.78rem;font-weight:600;border-left:3px solid;display:none;margin-bottom:.5rem}
+
+/* ANILOX TABLE */
+.anilox-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.3rem;margin-top:.4rem}
+.acell{background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:.4rem .3rem;text-align:center}
+.acell.head{background:var(--s3);color:var(--mu);font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace}
+.acell .lpi{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--mu);margin-bottom:.15rem}
+.acell .vs{font-family:'IBM Plex Mono',monospace;font-size:.85rem;font-weight:600}
+.acell .vr{font-size:.58rem;color:var(--mu)}
+.acell.opt{border-color:var(--gr);background:var(--grd)}
+.acell.warn{border-color:var(--am);background:var(--amd)}
+.acell.bad{border-color:var(--re);background:var(--red)}
+
+/* RUBBER ROLL */
+.rub-row{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;flex-wrap:wrap}
+.rub-in{font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:600;width:80px;
+  background:var(--s2);border:2px solid var(--bd);color:var(--cy);
+  padding:.25rem .35rem;border-radius:5px;outline:none;-moz-appearance:textfield;text-align:center}
+.rub-in::-webkit-outer-spin-button,.rub-in::-webkit-inner-spin-button{-webkit-appearance:none}
+.rub-in:focus{border-color:var(--cy)}
+.rub-unit{font-size:.68rem;color:var(--mu);font-family:'IBM Plex Mono',monospace;line-height:1.5}
+.rub-result{background:var(--s2);border:1px solid var(--bd);border-radius:5px;padding:.5rem .65rem;
+  font-family:'IBM Plex Mono',monospace;font-size:.82rem;display:none}
+
+/* INK CONSUMPTION CALC */
+.cons-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-bottom:.6rem}
+.inp-group label{font-size:.6rem;color:var(--mu);font-family:'IBM Plex Mono',monospace;display:block;margin-bottom:.2rem;letter-spacing:.08em;text-transform:uppercase}
+.inp-group input{width:100%;background:var(--s2);border:1px solid var(--bd);color:var(--tx);
+  font-family:'IBM Plex Mono',monospace;font-size:.95rem;padding:.4rem .45rem;border-radius:4px;outline:none}
+.inp-group input:focus{border-color:var(--ac)}
+.cons-result{background:var(--s2);border:1px solid var(--bd);border-radius:5px;padding:.65rem;display:none}
+.cons-result .big-num{font-family:'IBM Plex Mono',monospace;font-size:1.6rem;font-weight:600;color:var(--gr)}
+.cons-result .label{font-size:.65rem;color:var(--mu);margin-bottom:.1rem}
+.cons-result .sub-nums{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.3rem;margin-top:.5rem}
+.cons-result .sn{background:var(--s3);border-radius:4px;padding:.35rem .4rem;text-align:center}
+.cons-result .sn .sl{font-size:.54rem;color:var(--mu);font-family:'IBM Plex Mono',monospace}
+.cons-result .sn .sv{font-family:'IBM Plex Mono',monospace;font-size:.85rem;font-weight:600}
+
+/* ZONES */
+.zlist{display:flex;flex-direction:column;gap:.45rem}
+.zrow{display:flex;gap:.55rem;align-items:flex-start;font-size:.76rem}
+.zdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:.28rem}
+.zrow strong{font-weight:600;display:block;margin-bottom:.08rem}
+.zrow p{font-size:.68rem;color:var(--mu);line-height:1.35}
+
+/* TROUBLESHOOT */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--bd);border-radius:6px}
+table{width:100%;border-collapse:collapse;font-family:'IBM Plex Mono',monospace;font-size:.7rem}
+thead tr{background:var(--s2);border-bottom:1px solid var(--bd)}
+thead th{padding:.45rem .55rem;text-align:left;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);white-space:nowrap}
+thead th:not(:first-child){text-align:right}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr.hi{background:var(--acd);outline:1px solid var(--ac);outline-offset:-1px}
+td{padding:.4rem .55rem;vertical-align:middle}
+td:not(:first-child){text-align:right}
+td:first-child{font-weight:600;font-size:.78rem}
+.ztag{display:inline-block;font-size:.54rem;letter-spacing:.05em;text-transform:uppercase;
+  padding:.1rem .32rem;border-radius:3px;font-weight:600;font-family:'IBM Plex Sans Condensed',sans-serif}
+
+/* PH */
+.ph-badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.78rem;
+  padding:.22rem .5rem;border-radius:4px;background:rgba(11,197,234,.15);color:var(--cy);
+  border:1px solid rgba(11,197,234,.3);margin-bottom:.45rem}
+.note{font-size:.72rem;color:var(--mu);line-height:1.55}
+.note strong{color:var(--tx)}
+
+/* SIEGWERK SPECIFIC */
+.sw-badge{display:inline-block;font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(159,122,234,.15);color:var(--pu);border:1px solid rgba(159,122,234,.3);
+  padding:.15rem .4rem;border-radius:3px;margin-bottom:.4rem}
+
+/* ACCURACY WARNING */
+.accuracy{max-width:900px;margin:.6rem auto 0;font-size:.63rem;color:var(--mu);
+  border-top:1px solid var(--bd);padding-top:.5rem;line-height:1.5}
+.accuracy strong{color:var(--am)}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="eye">Siegwerk · Paper &amp; Board · Bobst MasterFlex · Велпапе постпечат</div>
+  <h1>Флексо Наръчник · <em>Велпапе DIN 4мм</em></h1>
+  <p class="sub">Водобазирани мастила · Анилокс линиатури · Гумен вал · Разход на мастило</p>
+</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="T('calc')">🧮 Калк.</button>
+  <button class="tab" onclick="T('anilox')">🔬 Анилокс</button>
+  <button class="tab" onclick="T('rubber')">🔵 Гумен</button>
+  <button class="tab" onclick="T('consume')">📦 Разход</button>
+  <button class="tab" onclick="T('zones')">🎯 Зони</button>
+  <button class="tab" onclick="T('ph')">⚗️ pH</button>
+  <button class="tab" onclick="T('table')">📊 Табл.</button>
+</div>
+
+<!-- CALC PANEL -->
+<div class="panel on" id="p-calc">
+  <div class="card">
+    <div class="clb">Калкулатор вискозитет · DIN 4мм</div>
+    <div class="calc-row">
+      <input class="big-in" id="sIn" type="number" min="8" max="120" placeholder="24" inputmode="decimal"/>
+      <span class="unit">секунди<br>DIN 4мм</span>
+    </div>
+    <div class="nudge-row">
+      <button class="ndg" onclick="nd(-1)">−1s</button>
+      <button class="ndg" onclick="nd(-0.5)">−½s</button>
+      <button class="ndg" onclick="nd(0.5)">+½s</button>
+      <button class="ndg" onclick="nd(1)">+1s</button>
+    </div>
+    <div class="rpills">
+      <div class="rp"><div class="rl">Динамичен</div><div class="rv" id="rEt">—</div><div class="rl">mPa·s</div></div>
+      <div class="rp"><div class="rl">Кинематичен</div><div class="rv" id="rNu">—</div><div class="rl">mm²/s</div></div>
+      <div class="rp"><div class="rl">≈ cP</div><div class="rv" id="rCp">—</div><div class="rl">centipoise</div></div>
+    </div>
+    <div class="zbanner" id="zBn"></div>
+  </div>
+  <div class="card">
+    <div class="clb">Siegwerk · Препоръки за велпапе постпечат</div>
+    <div class="sw-badge">Siegwerk Paper &amp; Board</div>
+    <p class="note">
+      <strong>Оптимален вискозитет:</strong> 22–30s DIN 4мм при 20°C<br>
+      <strong>CMYK процес / тонови:</strong> 22–26s<br>
+      <strong>Плътни покрития / солид:</strong> 24–30s<br>
+      <strong>Груб recycled liner:</strong> 28–35s<br>
+      <strong>pH диапазон:</strong> 8.5–9.5 (коригирай ПРЕДИ вискозитета!)<br>
+      <strong>Температура:</strong> 20–25°C · измервай на 30–45 мин.<br>
+      <strong>Siegwerk съвет:</strong> при проблеми с рубинг → добави ретардер; при мотлинг → добави смачващ агент
+    </p>
+  </div>
+</div>
+
+<!-- ANILOX PANEL -->
+<div class="panel" id="p-anilox">
+  <div class="card">
+    <div class="clb">Препоръчан вискозитет DIN 4мм по линиатура на анилокс</div>
+    <p class="note" style="margin-bottom:.6rem">Въведи своите секунди и виж дали съответстват на избраната линиатура.</p>
+    <div class="calc-row" style="margin-bottom:.4rem">
+      <input class="big-in" id="aIn" type="number" min="8" max="60" placeholder="24" inputmode="decimal" oninput="updA()"/>
+      <span class="unit">секунди<br>DIN 4мм</span>
+    </div>
+    <div class="anilox-grid" id="aniloxGrid">
+      <!-- filled by JS -->
+    </div>
+    <p class="note" style="margin-top:.6rem;font-size:.63rem">
+      <strong>Правило Siegwerk:</strong> Анилокс/Растер = мин. 4:1 (напр. 200 lpi анилокс → макс. 48 lpi форма)<br>
+      <strong>BCM (cm³/m²):</strong> по-висок обем = повече мастило = по-нисък вискозитет за равен трансфер
+    </p>
+  </div>
+  <div class="card">
+    <div class="clb">Обем на анилокс (cm³/m²) по линиатура · Велпапе</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th>lpi</th><th>cm³/m²</th><th>Приложение</th><th>Viscosity DIN4</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>100</td><td>10–18</td><td style="text-align:right;font-size:.65rem;color:var(--mu)">Груб liner, едроструктурна печат</td><td><span class="ztag" style="background:var(--amd);color:var(--am);border:1px solid var(--am)44">28–35s</span></td></tr>
+          <tr><td>120</td><td>8–14</td><td style="text-align:right;font-size:.65rem;color:var(--mu)">Плътни покрития, голям солид</td><td><span class="ztag" style="background:var(--amd);color:var(--am);border:1px solid var(--am)44">26–32s</span></td></tr>
+          <tr><td>160</td><td>5–9</td><td style="text-align:right;font-size:.65rem;color:var(--mu)">Линии, текст, ограничен процес</td><td><span class="ztag" style="background:var(--grd);color:var(--gr);border:1px solid var(--gr)44">24–28s ✓</span></td></tr>
+          <tr><td>200</td><td>3.5–6</td><td style="text-align:right;font-size:.65rem;color:var(--mu)">CMYK процес, тонови растери</td><td><span class="ztag" style="background:var(--grd);color:var(--gr);border:1px solid var(--gr)44">22–26s ✓</span></td></tr>
+          <tr><td>300</td><td>2–4</td><td style="text-align:right;font-size:.65rem;color:var(--mu)">Фин растер, висока резолюция</td><td><span class="ztag" style="background:var(--acd);color:var(--ac);border:1px solid var(--ac)44">20–24s</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- RUBBER ROLL PANEL -->
+<div class="panel" id="p-rubber">
+  <div class="card">
+    <div class="clb">Система с гумен вал · Среден пренос 12.5 g/m²</div>
+    <div class="sw-badge">Двувалова система (rubber + anilox)</div>
+    <p class="note" style="margin-bottom:.6rem">
+      При гумен вал (двувалова система) трансферът на мастило е <strong>значително по-висок</strong> отколкото при камерна ракел система. Средният пренос от ~12.5 g/m² е типичен за груби велпапе субстрати.
+    </p>
+    <div class="clb" style="margin-top:.3rem">Въведи % покритие → изчисли реален нанос</div>
+    <div class="rub-row">
+      <input class="rub-in" id="rubCov" type="number" min="1" max="100" placeholder="50" inputmode="decimal" oninput="updR()"/>
+      <span class="rub-unit">%<br>покритие</span>
+      <input class="rub-in" id="rubArea" type="number" min="0.1" max="100" placeholder="1.0" inputmode="decimal" step="0.1" oninput="updR()" style="color:var(--gr)"/>
+      <span class="rub-unit">m²<br>лист/изделие</span>
+    </div>
+    <div class="rub-result" id="rubResult"></div>
+  </div>
+  <div class="card">
+    <div class="clb">Вискозитет при гумен вал · Специфики</div>
+    <p class="note" style="line-height:1.7">
+      <strong>Двувалова система:</strong> гумен вал → анилокс → форма → субстрат<br>
+      <strong>Препоръчан вискозитет:</strong> 28–38s DIN 4мм (по-гъсто от камерна ракел!)<br>
+      <strong>Защо по-гъсто?</strong> Гуменият вал не дозира прецизно — по-висок вискозитет предотвратява препълване<br>
+      <strong>Лента на вал (striation):</strong> При вискозитет под 25s с гумен вал → ивици по посока на печат<br>
+      <strong>Паралелност:</strong> Siegwerk предупреждава — вариации в ширина = нееднакво прилягане на гумения вал<br>
+      <strong>Retarder:</strong> При бърза скорост + гумен вал → задължително добави ретардер за мечаркане<br>
+      <strong>pH:</strong> 8.5–9.2 (по-тесен диапазон при гумен вал)
+    </p>
+  </div>
+</div>
+
+<!-- CONSUMPTION PANEL -->
+<div class="panel" id="p-consume">
+  <div class="card">
+    <div class="clb">Калкулатор разход на мастило · Siegwerk формула</div>
+    <div class="cons-grid">
+      <div class="inp-group">
+        <label>% покритие на изделието</label>
+        <input type="number" id="cCov" min="1" max="100" placeholder="30" inputmode="decimal" oninput="updC()"/>
+      </div>
+      <div class="inp-group">
+        <label>Площ на изделието (m²)</label>
+        <input type="number" id="cArea" min="0.01" max="50" step="0.01" placeholder="0.80" inputmode="decimal" oninput="updC()"/>
+      </div>
+      <div class="inp-group">
+        <label>Анилокс обем (cm³/m²)</label>
+        <input type="number" id="cVol" min="1" max="30" step="0.5" placeholder="6" inputmode="decimal" oninput="updC()"/>
+      </div>
+      <div class="inp-group">
+        <label>Трансфер ефективност (%)</label>
+        <input type="number" id="cEff" min="10" max="80" placeholder="55" inputmode="decimal" oninput="updC()"/>
+      </div>
+      <div class="inp-group">
+        <label>Плътност на мастило (g/cm³)</label>
+        <input type="number" id="cDen" min="0.8" max="1.5" step="0.01" placeholder="1.05" inputmode="decimal" oninput="updC()"/>
+      </div>
+      <div class="inp-group">
+        <label>Тираж (брой изделия)</label>
+        <input type="number" id="cRun" min="1" placeholder="1000" inputmode="decimal" oninput="updC()"/>
+      </div>
+    </div>
+    <div class="cons-result" id="consResult"></div>
+    <p class="note" style="margin-top:.5rem;font-size:.62rem">
+      <strong>Формула:</strong> Разход (g/m²) = Обем анилокс × Ефективност × Плътност × (% покритие / 100)<br>
+      <strong>Типични ефективности:</strong> Камерна ракел 50–65% · Гумен вал 60–75% · Siegwerk препоръчва 55% за изчисления
+    </p>
+  </div>
+  <div class="card">
+    <div class="clb">Референтни стойности · Разход g/m² · Велпапе</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Покритие</th><th>100 lpi</th><th>160 lpi</th><th>200 lpi</th><th>Гумен вал</th></tr></thead>
+        <tbody>
+          <tr><td>20%</td><td>1.2–2.0</td><td>0.6–1.0</td><td>0.4–0.7</td><td>2.5 g/m²</td></tr>
+          <tr><td>40%</td><td>2.5–4.0</td><td>1.2–2.0</td><td>0.8–1.4</td><td>5.0 g/m²</td></tr>
+          <tr><td>60%</td><td>3.8–6.0</td><td>1.8–3.0</td><td>1.2–2.1</td><td>7.5 g/m²</td></tr>
+          <tr><td>80%</td><td>5.0–8.0</td><td>2.4–4.0</td><td>1.6–2.8</td><td>10.0 g/m²</td></tr>
+          <tr><td>100%</td><td>6.5–10</td><td>3.0–5.0</td><td>2.0–3.5</td><td>12.5 g/m²</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ZONES PANEL -->
+<div class="panel" id="p-zones">
+  <div class="card">
+    <div class="clb">Работни зони · Siegwerk · Велпапе постпечат DIN 4мм</div>
+    <div class="zlist">
+      <div class="zrow"><div class="zdot" style="background:var(--re)"></div><div>
+        <strong style="color:var(--re)">Под 16s — Прекалено течно</strong>
+        <p>Разтичане, striation (Siegwerk: увеличи вискозитета), лош рубинг, замърсяване анилокс</p>
+      </div></div>
+      <div class="zrow"><div class="zdot" style="background:var(--am)"></div><div>
+        <strong style="color:var(--am)">16–22s — Долна граница</strong>
+        <p>Лакове, грунд, прайм коат; нискообемни анилокси 200–300 lpi</p>
+      </div></div>
+      <div class="zrow"><div class="zdot" style="background:var(--gr)"></div><div>
+        <strong style="color:var(--gr)">22–30s — ОПТИМАЛНА ЗОНА ✓ (Siegwerk)</strong>
+        <p>CMYK 22–26s; плътни покрития 24–30s; анилокс 120–200 lpi; камерна ракел система</p>
+      </div></div>
+      <div class="zrow"><div class="zdot" style="background:var(--am)"></div><div>
+        <strong style="color:var(--am)">28–38s — Горна граница / Гумен вал зона</strong>
+        <p>Груб recycled liner; двувалова (гумен) система; металик; специални мастила; 100 lpi анилокс</p>
+      </div></div>
+      <div class="zrow"><div class="zdot" style="background:var(--re)"></div><div>
+        <strong style="color:var(--re)">Над 40s — Прекалено гъсто</strong>
+        <p>Siegwerk: Dirty printing (мръсен печат), запушен анилокс, dot gain, пенене (foaming/pinholing)</p>
+      </div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="clb">Siegwerk Troubleshoot · Проблем → Вискозитет</div>
+    <p class="note" style="line-height:1.8">
+      <strong>Мотлинг (mottling):</strong> Намали вискозитета + добави смачващ агент<br>
+      <strong>Dirty printing:</strong> Намали вискозитета + регулирай ракелното налягане<br>
+      <strong>Striation (ивици с гумен вал):</strong> Увеличи вискозитета<br>
+      <strong>Пенене (foaming):</strong> Намали вискозитета + добави антипенещ агент<br>
+      <strong>Ghosting:</strong> Намали вискозитета или скоростта<br>
+      <strong>Bridging (мостчета):</strong> Намали вискозитета или смени анилокса<br>
+      <strong>Color strength слаб:</strong> Увеличи вискозитета с прясно мастило<br>
+      <strong>Trapping проблем:</strong> Намали вискозитета; провери сушенето
+    </p>
+  </div>
+</div>
+
+<!-- PH PANEL -->
+<div class="panel" id="p-ph">
+  <div class="card">
+    <div class="clb">pH контрол · Siegwerk Paper &amp; Board</div>
+    <div class="ph-badge">pH 8.5 – 9.5 · Задължителен диапазон</div>
+    <p class="note" style="line-height:1.7">
+      <strong>При pH под 8.5:</strong> акриловата смола се утаява → вискозитетът скача → запушен анилокс → color strength спада<br><br>
+      <strong>При pH над 9.5:</strong> пенене (foaming), лоша адхезия, pinholing<br><br>
+      <strong>⚠ Siegwerk: Коригирай pH ПРЕДИ вискозитета!</strong><br><br>
+      <strong>Корекция надолу:</strong> добави деминерализирана вода (НЕ чешмяна — калцият понижава pH)<br>
+      <strong>Корекция нагоре:</strong> добави одобрен амониев коректор / ретардер<br><br>
+      <strong>Гумен вал специфика:</strong> pH 8.5–9.2 (по-тесен диапазон — гуменият вал е чувствителен към пенене)<br><br>
+      <strong>Измервай:</strong> pH + вискозитет заедно, на всеки 30–45 мин. при активен тираж<br>
+      <strong>Температура:</strong> 20–25°C за мастилото — ±2°C = ±1–2s вискозитет!
+    </p>
+  </div>
+  <div class="card">
+    <div class="clb">Ефект на температурата · DIN 4мм</div>
+    <p class="note" style="line-height:1.8">
+      <strong>15°C</strong> → +2–3s спрямо базов (зимна пресзала!)<br>
+      <strong>20°C</strong> → базов вискозитет (референция)<br>
+      <strong>22°C</strong> → −0.5–1s<br>
+      <strong>25°C</strong> → −1.5–2s<br>
+      <strong>30°C</strong> → −3–4s (значително по-течно лете!)<br><br>
+      <strong>Пазарджик, лято:</strong> При 28–30°C в пресзалата мастилото може да е с 3–4s по-ниско от измереното в мастиленото складче — измервай директно в резервоара на пресата!
+    </p>
+  </div>
+</div>
+
+<!-- TABLE PANEL -->
+<div class="panel" id="p-table">
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>Секунди</th><th>mPa·s</th><th>mm²/s</th><th>Зона</th>
+      </tr></thead>
+      <tbody id="tBody"></tbody>
+    </table>
+  </div>
+  <div class="accuracy">
+    <strong>⚠ Достоверност на калкулатора:</strong> Формулата DIN 4мм (ν = 4.18×t − 17.5) е стандартна ISO 2431 и е точна ±5–8% при 20°C, чиста чаша и правилна техника. Siegwerk и Flint Group не публикуват точни конверсии — те предоставят данни директно в секунди. Разходът на мастило е индикативен ±15–20% (зависи от субстрата, износване на анилокса, температурата). Гуменият вал пренос 12.5 g/m² е средна индустриална стойност — реалният може да варира ±30%. <strong>Тези данни са ориентировъчни — винаги валидирай с твоя доставчик Siegwerk!</strong>
+  </div>
+</div>
+
+<script>
+const D=1.02;
+function cv(t){const nu=4.18*t-17.5;return{nu:Math.round(nu*10)/10,eta:Math.round(nu*D*10)/10}}
+function gz(t){
+  if(t<16)return{l:'Прекалено течно ↓',c:'var(--re)',bg:'var(--red)',tag:'НИСКО ↓'};
+  if(t<22)return{l:'Долна граница',c:'var(--am)',bg:'var(--amd)',tag:'ДОЛНА'};
+  if(t<=30)return{l:'Оптимална · Siegwerk ✓',c:'var(--gr)',bg:'var(--grd)',tag:'ОПТИМАЛНО ✓'};
+  if(t<=40)return{l:'Горна граница / Гумен вал',c:'var(--am)',bg:'var(--amd)',tag:'ГОРНА/ГУМЕН'};
+  return{l:'Прекалено гъсто ↑',c:'var(--re)',bg:'var(--red)',tag:'ВИСОКО ↑'};
+}
+
+// TABS
+function T(n){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('p-'+n).classList.add('on');
+  const ts=['calc','anilox','rubber','consume','zones','ph','table'];
+  document.querySelectorAll('.tab')[ts.indexOf(n)].classList.add('on');
+}
+
+// MAIN CALC
+const sIn=document.getElementById('sIn');
+const zBn=document.getElementById('zBn');
+function updCalc(){
+  const v=parseFloat(sIn.value);
+  tRows.forEach(r=>r.tr.classList.remove('hi'));
+  if(!v||v<8){zBn.style.display='none';['rEt','rNu','rCp'].forEach(i=>document.getElementById(i).textContent='—');return}
+  const {nu,eta}=cv(v);const z=gz(v);
+  document.getElementById('rEt').textContent=eta>0?eta:'—';
+  document.getElementById('rNu').textContent=nu>0?nu:'—';
+  document.getElementById('rCp').textContent=eta>0?eta:'—';
+  zBn.style.display='block';zBn.style.background=z.bg;zBn.style.borderColor=z.c;zBn.style.color=z.c;
+  zBn.textContent=z.l+(eta>0?' · '+eta+' mPa·s':'');
+  const cl=tRows.reduce((p,c)=>Math.abs(c.t-v)<Math.abs(p.t-v)?c:p);
+  cl.tr.classList.add('hi');
+}
+sIn.addEventListener('input',updCalc);
+function nd(d){const c=parseFloat(sIn.value)||24;sIn.value=Math.max(8,Math.min(120,Math.round((c+d)*2)/2));updCalc()}
+
+// ANILOX PANEL
+const aniloxData=[
+  {lpi:100,vol:'10–18',vis:[28,35],label:'Груб liner'},
+  {lpi:120,vol:'8–14', vis:[26,32],label:'Плътен солид'},
+  {lpi:160,vol:'5–9',  vis:[24,28],label:'Линии/текст'},
+  {lpi:200,vol:'3.5–6',vis:[22,26],label:'CMYK процес'},
+  {lpi:300,vol:'2–4',  vis:[20,24],label:'Фин растер'},
+];
+function updA(){
+  const v=parseFloat(document.getElementById('aIn').value);
+  const g=document.getElementById('aniloxGrid');
+  g.innerHTML='';
+  aniloxData.forEach(a=>{
+    const head=document.createElement('div');
+    head.className='acell head';head.textContent=a.lpi+' lpi';g.appendChild(head);
+  });
+  aniloxData.forEach(a=>{
+    const c=document.createElement('div');
+    let cls='acell';
+    if(v){
+      if(v>=a.vis[0]&&v<=a.vis[1])cls+=' opt';
+      else if(v>=a.vis[0]-3&&v<=a.vis[1]+3)cls+=' warn';
+      else cls+=' bad';
+    }
+    c.className=cls;
+    c.innerHTML=`<div class="lpi">${a.label}</div><div class="vs">${a.vis[0]}–${a.vis[1]}s</div><div class="vr">${a.vol} cm³/m²</div>`;
+    g.appendChild(c);
+  });
+}
+updA();
+
+// RUBBER ROLL
+function updR(){
+  const cov=parseFloat(document.getElementById('rubCov').value);
+  const area=parseFloat(document.getElementById('rubArea').value)||1;
+  const r=document.getElementById('rubResult');
+  if(!cov){r.style.display='none';return}
+  const baseTransfer=12.5; // g/m²
+  const gm2=baseTransfer*(cov/100);
+  const totalG=gm2*area;
+  r.style.display='block';
+  r.innerHTML=`<span style="color:var(--mu);font-size:.6rem">НАНОС НА МАСТИЛО (гумен вал · 12.5 g/m² база)</span><br>
+    <span style="font-size:1.3rem;font-weight:600;color:var(--cy)">${gm2.toFixed(2)} g/m²</span> при ${cov}% покритие<br>
+    <span style="font-size:.85rem;color:var(--gr)">${totalG.toFixed(2)} g</span> на изделие от ${area} m²<br>
+    <span style="font-size:.65rem;color:var(--mu);margin-top:.3rem;display:block">Препоръчан вискозитет при гумен вал: <strong style="color:var(--tx)">28–38s DIN 4мм</strong></span>`;
+}
+
+// CONSUMPTION CALC
+function updC(){
+  const cov=parseFloat(document.getElementById('cCov').value);
+  const area=parseFloat(document.getElementById('cArea').value);
+  const vol=parseFloat(document.getElementById('cVol').value);
+  const eff=parseFloat(document.getElementById('cEff').value)||55;
+  const den=parseFloat(document.getElementById('cDen').value)||1.05;
+  const run=parseInt(document.getElementById('cRun').value)||1;
+  const r=document.getElementById('consResult');
+  if(!cov||!area||!vol){r.style.display='none';return}
+  // g/m² = vol(cm³/m²) × (eff/100) × den(g/cm³) × (cov/100)
+  const gm2=vol*(eff/100)*den*(cov/100);
+  const perSheet=gm2*area;
+  const totalKg=(perSheet*run)/1000;
+  r.style.display='block';
+  r.innerHTML=`
+    <div class="label">Разход на мастило</div>
+    <div class="big-num">${gm2.toFixed(2)} g/m²</div>
+    <div class="sub-nums">
+      <div class="sn"><div class="sl">На изделие</div><div class="sv">${perSheet.toFixed(1)}g</div></div>
+      <div class="sn"><div class="sl">Тираж ${run} бр.</div><div class="sv">${totalKg.toFixed(2)} kg</div></div>
+      <div class="sn"><div class="sl">На 1000 бр.</div><div class="sv">${(perSheet*1000/1000).toFixed(2)} kg</div></div>
+    </div>`;
+}
+
+// TABLE
+const tBody=document.getElementById('tBody');
+const tRows=[];
+for(let t=10;t<=60;t+=2){
+  const {nu,eta}=cv(t);const z=gz(t);
+  const tr=document.createElement('tr');tr.dataset.t=t;
+  const isOpt=t>=22&&t<=30;
+  tr.innerHTML=`<td style="${isOpt?'color:var(--gr)':''}">${t}s</td><td>${eta>0?eta:'—'}</td><td>${nu>0?nu:'—'}</td>
+    <td><span class="ztag" style="background:${z.bg};color:${z.c};border:1px solid ${z.c}44">${z.tag}</span></td>`;
+  tBody.appendChild(tr);tRows.push({t,tr});
+}
+
+// PWA
+if('serviceWorker' in navigator){
+  const sw=`const C='sw-v2';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll([self.location.href])));self.skipWaiting()});self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==C).map(k=>caches.delete(k)))));self.clients.claim()});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>caches.match(e.request))))})`;
+  const b=new Blob([sw],{type:'application/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(b)).catch(()=>{});
+}
+const mf={name:'Siegwerk Флексо Велпапе',short_name:'Siegwerk DIN4',display:'standalone',background_color:'#0f1117',theme_color:'#0f1117',lang:'bg',icons:[{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='32' fill='%230f1117'/%3E%3Ctext x='96' y='100' font-family='monospace' font-size='42' font-weight='bold' fill='%234f7ef5' text-anchor='middle'%3ESIEG%3C/text%3E%3Ctext x='96' y='145' font-family='monospace' font-size='28' fill='%232ec97c' text-anchor='middle'%3EDIN 4mm%3C/text%3E%3C/svg%3E",sizes:'192x192',type:'image/svg+xml'}]};
+const mb=new Blob([JSON.stringify(mf)],{type:'application/json'});
+const ml=document.createElement('link');ml.rel='manifest';ml.href=URL.createObjectURL(mb);document.head.appendChild(ml);
+
+let dp;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;
+  const b=document.createElement('div');b.style.cssText='position:fixed;bottom:1rem;left:.85rem;right:.85rem;background:var(--acd);border:1px solid var(--ac);border-radius:6px;padding:.6rem .85rem;font-size:.75rem;color:var(--ac);display:flex;align-items:center;gap:.75rem;z-index:999';
+  b.innerHTML=`<span>📲 Инсталирай като приложение</span><button style="background:var(--ac);color:#fff;border:none;border-radius:4px;padding:.3rem .7rem;font-size:.72rem;font-weight:600;cursor:pointer">Инсталирай</button><button onclick="this.parentNode.remove()" style="background:transparent;color:var(--mu);border:none;cursor:pointer">✕</button>`;
+  b.querySelector('button').addEventListener('click',async()=>{if(!dp)return;dp.prompt();dp=null;b.remove()});
+  document.body.appendChild(b);
+});
+</script>
+</body>
+</html>
